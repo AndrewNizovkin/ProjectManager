@@ -18,6 +18,9 @@
     </facets>
     <layout>
         <formLayout id="form" dataContainer="userDc">
+            <image id="avatar" dataContainer="userDc" property="avatar" maxWidth="100px" maxHeight="100px"/>
+            <fileUploadField id="avatarField" property="avatar" clearButtonVisible="true" fileNameVisible="true"
+                             uploadIcon="lumo:upload"/>
             <textField id="usernameField" property="username" readOnly="true"/>
             <passwordField id="passwordField"
                            label="msg://com.company.projectmanager.entity/User.password"

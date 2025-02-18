@@ -8,9 +8,10 @@ import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.security.authentication.JmixUserDetails;
-import org.springframework.security.core.GrantedAuthority;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import org.springframework.security.core.GrantedAuthority;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
@@ -23,7 +24,7 @@ import java.util.UUID;
 public class User implements JmixUserDetails, HasTimeZone {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "ID", nullable = false)
     @JmixGeneratedValue
     private UUID id;
 
@@ -33,30 +34,35 @@ public class User implements JmixUserDetails, HasTimeZone {
 
     @Column(name = "USERNAME", nullable = false)
     private String username;
-
     @Secret
     @SystemLevel
     @Column(name = "PASSWORD")
     private String password;
-
     @Column(name = "FIRST_NAME")
     private String firstName;
-
     @Column(name = "LAST_NAME")
     private String lastName;
-
     @Email
     @Column(name = "EMAIL")
     private String email;
-
     @Column(name = "ACTIVE")
     private Boolean active = true;
-
     @Column(name = "TIME_ZONE_ID")
     private String timeZoneId;
 
+    @Column(name = "AVATAR")
+    private byte[] avatar;
+
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
 
     public UUID getId() {
         return id;
