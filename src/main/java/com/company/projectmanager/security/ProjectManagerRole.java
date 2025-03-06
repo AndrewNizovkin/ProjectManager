@@ -14,24 +14,21 @@ import io.jmix.securityflowui.role.annotation.ViewPolicy;
 public interface ProjectManagerRole {
     String CODE = "project-manager";
 
-    @EntityAttributePolicy(entityClass = Project.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
-    @EntityPolicy(entityClass = Project.class, actions = EntityPolicyAction.ALL)
-    void project();
-
-    @EntityAttributePolicy(entityClass = ProjectStats.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
-    @EntityPolicy(entityClass = ProjectStats.class, actions = EntityPolicyAction.READ)
+    @EntityAttributePolicy(entityClass = ProjectStats.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
+    @EntityPolicy(entityClass = ProjectStats.class, actions = EntityPolicyAction.ALL)
     void projectStats();
 
     @EntityAttributePolicy(entityClass = Task.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
     @EntityPolicy(entityClass = Task.class, actions = EntityPolicyAction.ALL)
     void task();
 
-    @EntityAttributePolicy(entityClass = TimeEntry.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
-    @EntityPolicy(entityClass = TimeEntry.class, actions = EntityPolicyAction.ALL)
+    @EntityAttributePolicy(entityClass = TimeEntry.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
+    @EntityPolicy(entityClass = TimeEntry.class, actions = {EntityPolicyAction.READ, EntityPolicyAction.CREATE, EntityPolicyAction.DELETE})
     void timeEntry();
 
-    @EntityAttributePolicy(entityClass = User.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
-    @EntityPolicy(entityClass = User.class, actions = {EntityPolicyAction.READ, EntityPolicyAction.UPDATE})
+    @EntityAttributePolicy(entityClass = User.class, attributes = {"firstName", "lastName", "id"}, action = EntityAttributePolicyAction.MODIFY)
+    @EntityAttributePolicy(entityClass = User.class, attributes = {"version", "username", "password", "email", "active", "timeZoneId", "avatar"}, action = EntityAttributePolicyAction.VIEW)
+    @EntityPolicy(entityClass = User.class, actions = {EntityPolicyAction.UPDATE, EntityPolicyAction.READ})
     void user();
 
     @MenuPolicy(menuIds = {"User.list", "Project.list", "TimeEntry.list", "Task_.list", "ProjectStats.list"})
@@ -40,4 +37,8 @@ public interface ProjectManagerRole {
 
     @SpecificPolicy(resources = "ui.loginToUi")
     void specific();
+
+    @EntityAttributePolicy(entityClass = Project.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
+    @EntityPolicy(entityClass = Project.class, actions = EntityPolicyAction.ALL)
+    void project();
 }
