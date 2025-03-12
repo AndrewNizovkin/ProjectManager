@@ -1,0 +1,12 @@
+version: "2.19"
+services:
+  web:
+    image: project-manager-dc
+    ports:
+      - 8080:8080
+  db:
+    image: postgres:alpine3.19
+    environment:
+      POSTGRES_DB: projectdb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
